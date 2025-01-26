@@ -7,7 +7,7 @@ from pickle import load
 
 app = Flask(__name__)
 
-model = load(open('..\models\naive_bayes_gaussian_opt.sav', 'rb'))
+model = load(open('../models/naive_bayes_gaussian_opt.sav', 'rb'))
 
 class_dict = {
     0: 'Negative Comment',
