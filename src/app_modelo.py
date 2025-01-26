@@ -4,6 +4,7 @@
 
 from flask import Flask, request, render_template
 from pickle import load
+import numpy as np
 
 app = Flask(__name__)
 
@@ -21,7 +22,7 @@ def index():
         text = request.form['text']
         if text:  # Verificar si se ingresó texto
             # Asegurarse de que el texto se pase como lista al modelo
-            prediction = model.predict([text])
+            prediction = model.predict(np.array([text]))
             pred_comment = class_dict[prediction[0]]  # Obtener el resultado correcto
 
     return render_template('index.html', prediction=pred_comment)
