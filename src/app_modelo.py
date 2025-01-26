@@ -34,7 +34,7 @@ def index():
     return render_template('index.html', prediction=pred_comment)
 
 import os
-
+# Parte final modificada para que funcione en Render
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))  # Usar el puerto asignado o 5000 por defecto
     app.run(host='0.0.0.0', port=port)
