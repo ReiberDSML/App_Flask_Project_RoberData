@@ -8,7 +8,9 @@ import numpy as np
 
 app = Flask(__name__)
 
+# Cargar modelo y vectorizador
 model = load(open('../models/naive_bayes_gaussian_opt.sav', 'rb'))
+vectorizer = load(open('../models/tfidf_vectorizer.sav', 'rb'))
 
 class_dict = {
     0: 'Negative Comment',
@@ -21,8 +23,12 @@ def index():
     if request.method == 'POST':
         text = request.form['text']
         if text:  # Verificar si se ingresó texto
-            # Asegurarse de que el texto se pase como lista al modelo
-            prediction = model.predict(np.array([text]))
+            # Preprocesar el texto usando el vectorizador cargado
+            text_vectorized = vectorizer.transform([text])
+            # Convertir a formato denso para GaussianNB
+            text_dense = text_vectorized.toarray()
+            # Realizar la predicción
+            prediction = model.predict(text_dense)
             pred_comment = class_dict[prediction[0]]  # Obtener el resultado correcto
 
     return render_template('index.html', prediction=pred_comment)
