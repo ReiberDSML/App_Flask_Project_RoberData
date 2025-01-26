@@ -21,11 +21,12 @@ def index():
 
         text = request.form['text']
         prediction = model.predict(text)
-        pred_comment = class_dict (prediction)
+        pred_comment = class_dict (prediction[0])
 
     else:
         pred = None
 
     return render_template('index.html', prediction=pred_comment)
 
-    
+if __name__ == '__main__':
+    app.run(debug=True)
